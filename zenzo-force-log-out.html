@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Zenzo Force Log Out</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Share Tech Mono', monospace;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: black;
+  color: #00ffea;
+}
+
+video.bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.2) contrast(1.2);
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.glitch {
+  font-size: 2.5em;
+  color: white;
+  text-shadow: 0 0 5px red, 0 0 10px blue, 0 0 20px #00fff7;
+  animation: flicker 1s infinite;
+  text-align: center;
+  line-height: 1.1em;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0;
+  }
+}
+
+.form {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 1em;
+  background: black;
+  color: #00ffea;
+  border: 2px solid #00ffea;
+  outline: none;
+  width: 250px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  background: rgb(255, 0, 255);
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: 0.3s;
+  text-shadow: 0 0 10px red;
+  box-shadow: 0 0 15px rgb(0, 255, 255);
+}
+
+button:hover {
+  background: rgb(255, 255, 0);
+  color: black;
+  text-shadow: 0 0 5px black;
+}
+
+.result {
+  margin-top: 30px;
+  font-size: 1.2em;
+  color: rgb(0, 255, 127);
+  text-shadow: 0 0 10px red;
+  display: none;
+  text-align: center;
+  animation: appear 1s ease-in-out;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.terminal {
+  margin-top: 20px;
+  font-size: 1em;
+  color: #00ffea;
+  display: none;
+  white-space: pre-wrap;
+}
+
+  </style>
+</head>
+<body>
+  <video class="bg-video" autoplay muted loop>
+    <source src="https://assets.mixkit.co/videos/preview/mixkit-hacker-typing-on-a-computer-5047-large.mp4" type="video/mp4">
+  </video>
+  <audio id="glitchSound" src="https://www.myinstants.com/media/sounds/glitch-sound.mp3"></audio>  <div class="overlay">
+    <div class="glitch">Zenzo Force<br>Log Out</div>
+    <div class="form">
+      <input type="text" id="phone" placeholder="+60XXXXXXXXX">
+      <button onclick="attackTarget()">⚡ ATTACK ⚡</button>
+    </div>
+    <div class="terminal" id="terminal"></div>
+    <div class="result" id="result"></div>
+  </div>  <script>
+    function typeEffect(text, elementId, delay = 50) {
+      const el = document.getElementById(elementId);
+      let i = 0;
+      el.style.display = 'block';
+      el.innerHTML = '';
+      const typing = setInterval(() => {
+        el.innerHTML += text.charAt(i);
+        i++;
+        if (i >= text.length) clearInterval(typing);
+      }, delay);
+    }
+
+    function attackTarget() {
+      const phone = document.getElementById('phone').value;
+      const result = document.getElementById('result');
+      const terminal = document.getElementById('terminal');
+      const glitchSound = document.getElementById('glitchSound');
+
+      if (!phone.startsWith('+60') || phone.length < 10) {
+        result.style.display = 'block';
+        result.innerHTML = '⚠️ Format nombor tidak sah. Sila guna +60XXXXXXXXX';
+        return;
+      }
+
+      glitchSound.play();
+      result.style.display = 'none';
+      terminal.style.display = 'block';
+
+      const sequence =
+        '[Zenzo Terminal Initiated]\n' +
+        '> Target: ' + phone + '\n' +
+        '> Menghantar virus...\n' +
+        '> Melumpuhkan WhatsApp...\n' +
+        '> Memasuki sistem WhatsApp...\n' +
+        '> ⚠️ Serangan siber dalam proses...';
+
+      typeEffect(sequence, 'terminal', 70);
+
+      setTimeout(() => {
+        terminal.style.display = 'none';
+        result.style.display = 'block';
+        result.innerHTML = '💀 Musuh telah dilenyapkan oleh Zenzo.';
+      }, 7000);
+    }
+  </script></body>
+</html>
